@@ -99,5 +99,22 @@ namespace IdentityManagementAPI.Controllers
             }
             return NoContent();
         }
+        [HttpGet("{search}")]
+        public async Task<ActionResult<IEnumerable<Book>>> Searh(string name)
+        {
+            try
+            {
+                var result = await _bookRepository.Search(name);
+                if(result.Any())
+                {
+                    return Ok(result);
+                }
+                return NotFound();
+            }
+            catch(Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while reteriving data");
+            }
+        }
     }
 }

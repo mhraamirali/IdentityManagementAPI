@@ -9,6 +9,7 @@ namespace IdentityManagementAPI.Repository
     public interface IBookRepository
     {
         ICollection<Book> GetBooks();
+        Task<IEnumerable<Book>> Search( string name);
         ICollection<Book> GetBooksInSubject(int subjectId);
         Book GetBook(int bookId);
         bool BookExists(string name);

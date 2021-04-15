@@ -57,6 +57,16 @@ namespace IdentityManagementAPI.Repository
             return _db.SaveChanges() >= 0 ? true : false;
         }
 
+        public async Task<IEnumerable<Book>> Search(string name)
+        {
+            IQueryable<Book> query = _db.Books;
+            if(!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(x => x.Name.Contains(name));
+            }
+            return await query.ToListAsync();
+        }
+
         public bool UpdateBook(Book book)
         {
             _db.Books.Update(book);
